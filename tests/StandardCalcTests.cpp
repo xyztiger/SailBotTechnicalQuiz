@@ -4,7 +4,6 @@
 
 
 #include <gtest/gtest.h>
-#include <gmock/gmock.h>
 #include "../StandardCalc.h"
 
 using testing::Eq;
@@ -16,6 +15,7 @@ class ClassDeclaration : public testing::Test {
 };
 }
 
+//tests for BoundTo180
 TEST_F(ClassDeclaration, BoundTo180Test) {
   //given tests
   ASSERT_FLOAT_EQ(obj.BoundTo180(360), 0);
@@ -27,6 +27,7 @@ TEST_F(ClassDeclaration, BoundTo180Test) {
 
   //angle with decimals
   ASSERT_FLOAT_EQ(obj.BoundTo180(55.5312), 55.5312);
+  ASSERT_FLOAT_EQ(obj.BoundTo180(-450.123), -90.123);
 
   //angle equal to 180
   ASSERT_FLOAT_EQ(obj.BoundTo180(180), -180);
@@ -51,9 +52,46 @@ TEST_F(ClassDeclaration, BoundTo180Test) {
   ASSERT_FLOAT_EQ(obj.BoundTo180(-480), -120);
 }
 
+//tests for IsAngleBetween; input angles are assumed to be bounded to [-180, 180) as per the note in the declaration
 TEST_F(ClassDeclaration, IsAngleBetweenTest) {
   //given tests
   ASSERT_TRUE(obj.IsAngleBetween(-90, -180, 110));
   ASSERT_FALSE(obj.IsAngleBetween(-90, -180, 80));
 
+  //angles with decimals
+  ASSERT_TRUE(obj.IsAngleBetween(-90.5, -179.34, 110.312));
+  ASSERT_FALSE(obj.IsAngleBetween(-90.5, -179.34, 80.842));
+
+  //middle angle equal to bounding angle
+  ASSERT_FALSE(obj.IsAngleBetween(100, 100, 120));
+  ASSERT_FALSE(obj.IsAngleBetween(-50, -60, -60));
+  ASSERT_FALSE(obj.IsAngleBetween(120.21, 100.3, 100.3));
+
+  //bounding angles are the same
+  ASSERT_FALSE(obj.IsAngleBetween(10, 10, 10));
+  ASSERT_FALSE(obj.IsAngleBetween(-50, -60, -50));
+
+  //bounding angles both positive
+  ASSERT_TRUE(obj.IsAngleBetween(10, 50, 80));
+  ASSERT_TRUE(obj.IsAngleBetween(170, 60, 20));
+  ASSERT_TRUE(obj.IsAngleBetween(30, 170, 175));
+  ASSERT_FALSE(obj.IsAngleBetween(10, 100, 80));
+  ASSERT_FALSE(obj.IsAngleBetween(170, 175, 10));
+
+  //bounding angles both negative
+  ASSERT_TRUE(obj.IsAngleBetween(-10, -50, -80));
+  ASSERT_TRUE(obj.IsAngleBetween(-170, -60, -20));
+  ASSERT_TRUE(obj.IsAngleBetween(-30, -170, -175));
+  ASSERT_FALSE(obj.IsAngleBetween(-10, -100, -80));
+  ASSERT_FALSE(obj.IsAngleBetween(-170, -175, -10));
+
+  //one positive bounding angle, one bounding angle negative
+  ASSERT_TRUE(obj.IsAngleBetween(-10, 50, 80));
+  ASSERT_TRUE(obj.IsAngleBetween(170, -60, -20));
+  ASSERT_TRUE(obj.IsAngleBetween(-170, -180, 50));
+  ASSERT_TRUE(obj.IsAngleBetween(-170, 170, 100));
+  ASSERT_FALSE(obj.IsAngleBetween(-10, 100, 80));
+  ASSERT_FALSE(obj.IsAngleBetween(170, -10, -20));
+  ASSERT_FALSE(obj.IsAngleBetween(-170, -100, 50));
+  ASSERT_FALSE(obj.IsAngleBetween(-170, 10, 100));
 }
