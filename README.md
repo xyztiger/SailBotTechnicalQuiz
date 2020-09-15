@@ -1,10 +1,11 @@
-##Sailbot Technical Quiz
+# Sailbot Technical Quiz
 
-Programming questions are answered in StandardCalc.h and StandardCalc.cpp
+## Programming questions:
+Please find the class and method declaration in StandardCalc.h and the method implementations in StandardCalc.cpp
+Please find the tests in the tests folder, in the file StandardCalcTests.cpp
 
-Tests can be run altogether by running main.cpp
+Tests can be run altogether by running main.cpp or ran individually in StandardCalcTests.cpp
 
-Tests can be viewed or ran individually by going to tests/StandardCalcTests.cpp and running
-a specific test.
+## Version Control questions:
 
-Version Control question answered in sailbot_git_questions.txt
+Please find the answer in sailbot_git_questions.txt
