@@ -3,7 +3,7 @@
 //
 
 #include "StandardCalc.h"
-#include <math.h>
+#include <cmath>
 
 float StandardCalc::BoundTo180(float angle) {
   angle = fmod(angle, 360); // angle in interval (-360, 360)
@@ -15,7 +15,7 @@ float StandardCalc::BoundTo180(float angle) {
   return angle;
 }
 
-bool StandardCalc::isAngleBetween(float first_angle, float middle_angle, float second_angle) {
+bool StandardCalc::IsAngleBetween(float first_angle, float middle_angle, float second_angle) {
   float greater_angle = fmax(first_angle, second_angle);
   float lesser_angle = fmin(first_angle, second_angle);
   if (greater_angle - lesser_angle > 180) {

@@ -26,7 +26,7 @@ class StandardCalc {
   * @return Whether |middle_angle| is between |first_angle| and |second_angle|
   (exclusive).
   */
-  bool isAngleBetween(float first_angle, float middle_angle, float second_angle);
+  bool IsAngleBetween(float first_angle, float middle_angle, float second_angle);
 };
 
 #endif //SAILBOTTECHNICALQUIZ_STANDARDCALC_H
