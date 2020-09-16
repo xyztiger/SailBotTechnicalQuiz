@@ -85,7 +85,7 @@ TEST_F(ClassDeclaration, IsAngleBetweenTest) {
   ASSERT_FALSE(obj.IsAngleBetween(-10, -100, -80));
   ASSERT_FALSE(obj.IsAngleBetween(-170, -175, -10));
 
-  //one positive bounding angle, one bounding angle negative
+  //one positive bounding angle, one negative bounding angle
   ASSERT_TRUE(obj.IsAngleBetween(-10, 50, 80));
   ASSERT_TRUE(obj.IsAngleBetween(170, -60, -20));
   ASSERT_TRUE(obj.IsAngleBetween(-170, -180, 50));
